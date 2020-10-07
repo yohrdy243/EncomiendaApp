@@ -3,14 +3,17 @@ package com.encomienda.app.models.entity;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table
@@ -20,7 +23,6 @@ public class Paquete implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private Long idPaquete;
 	
 	@Column(name = "codigo")
@@ -38,11 +40,13 @@ public class Paquete implements Serializable{
 	@Column(name = "peso")
 	private float peso;
 	
-
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "paquete_categoria_fk", referencedColumnName = "idCategoria",foreignKey = @ForeignKey(name = "paquete_categoria_fk", value = ConstraintMode.CONSTRAINT))
+	private Categoria categoria;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "paquete_categoria_fk", referencedColumnName = "idCategoria")
-	private Categoria categoria;
+	@JoinColumn(name="orden_paquetes_fk",referencedColumnName = "idOrdenDeEnvio",foreignKey = @ForeignKey(name = "paquete_orden_fk", value = ConstraintMode.CONSTRAINT))
+	private OrdenDeEnvio ordenDeEnvio;
 	
 	public boolean validarEstadoVigente() 
 	{
@@ -56,31 +60,33 @@ public class Paquete implements Serializable{
 	
 	public boolean validarPesoDePaquete() {
 		
+		float pesoMaximo = this.categoria.getPesoMaximo();
+		float pesoMinimo = this.categoria.getPesoMinimo();
 		char categoria = this.categoria.getTipoCategoria();
 		
 		switch (categoria) {
 			case 'A' : 
-					if(this.peso >= this.categoria.getPesoMaximo() && this.peso >= this.categoria.getPesoMinimo()) {
+					if(this.peso >= pesoMaximo && this.peso >= pesoMinimo) {
 							return true;
 						}
 					break;
 			case 'B' : 
-					if(this.peso >= this.categoria.getPesoMaximo()  && this.peso >= this.categoria.getPesoMinimo()) {
+					if(this.peso >= pesoMaximo  && this.peso >= pesoMinimo) {
 							return true;
 						}
 				break;
 			case 'C' : 
-					if(this.peso >= this.categoria.getPesoMaximo()  && this.peso >= this.categoria.getPesoMinimo()) {
+					if(this.peso >= pesoMaximo  && this.peso >= pesoMinimo) {
 							return true;
 						}
 				break;
 			case 'D' : 
-					if(this.peso >= this.categoria.getPesoMaximo()  && this.peso >= this.categoria.getPesoMinimo()) {
+					if(this.peso >= pesoMaximo  && this.peso >= pesoMinimo) {
 							return true;
 						}
 				break;
 			case 'E' : 
-					if(this.peso >= this.categoria.getPesoMaximo()  && this.peso >= this.categoria.getPesoMinimo()) {
+					if(this.peso >= pesoMaximo  && this.peso >= pesoMinimo) {
 							return true;
 						}
 				break;

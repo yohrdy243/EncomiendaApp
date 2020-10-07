@@ -5,8 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,8 +24,7 @@ public class OrdenDeEnvio implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
-	private Long idOrdenDePedido;
+	private Long idOrdenDeEnvio;
 	
 	@Column(name = "clave")
 	private String clave;
@@ -32,13 +33,13 @@ public class OrdenDeEnvio implements Serializable{
 	private String codigo;
 	
 	@Column(name = "fecha_envio")
-	private Date fecha_envio;
+	private Date fechaEnvio;
 	
 	@Column(name= "precio_total")
-	private float precio_total;
+	private float precioTotal;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="orden_ruta_fk",referencedColumnName = "idRuta")
+	@JoinColumn(name="orden_ruta_fk",referencedColumnName = "idRuta",foreignKey = @ForeignKey(name = "orden_ruta_fk", value = ConstraintMode.CONSTRAINT))
 	private Ruta ruta;
 	
 	
@@ -47,22 +48,32 @@ public class OrdenDeEnvio implements Serializable{
 	private List<Paquete> paquetes;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="orden_clienteEmisor_fk",referencedColumnName = "idCliente")
+	@JoinColumn(name="orden_clienteEmisor_fk",referencedColumnName = "idCliente",foreignKey = @ForeignKey(name = "orden_clienteEmisor_fk", value = ConstraintMode.CONSTRAINT))
 	private Cliente ClienteEmisor;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="orden_clienteReceptor_fk",referencedColumnName = "idCliente")
+	@JoinColumn(name="orden_clienteReceptor_fk",referencedColumnName = "idCliente",foreignKey = @ForeignKey(name = "orden_clienteReceptor_fk", value = ConstraintMode.CONSTRAINT))
 	private Cliente ClienteReceptor;
 
-	public float calcularPrecioTotal() {
-		return 0;
+	public void calcularPrecioTotal() {
+		
+		this.precioTotal = 0;
+		float precioPorCategoria = 0;
+		float precioPorEnvio = ruta.getPrecio() * paquetes.size();
+		
+		for (Paquete paquete : paquetes) {
+			precioPorCategoria = precioPorCategoria + paquete.getCategoria().getCosto();
+		}
+		
+		this.precioTotal = precioPorCategoria + precioPorEnvio;
 	}
-	public Long getIdOrdenDePedido() {
-		return idOrdenDePedido;
+	
+	public Long getIdOrdenDeEnvio() {
+		return idOrdenDeEnvio;
 	}
 
-	public void setIdOrdenDePedido(Long idOrdenDePedido) {
-		this.idOrdenDePedido = idOrdenDePedido;
+	public void setIdOrdenDeEnvio(Long idOrdenDeEnvio) {
+		this.idOrdenDeEnvio = idOrdenDeEnvio;
 	}
 
 	public String getClave() {
@@ -81,22 +92,18 @@ public class OrdenDeEnvio implements Serializable{
 		this.codigo = codigo;
 	}
 
-	public Date getFecha_envio() {
-		return fecha_envio;
+	public Date getFechaEnvio() {
+		return fechaEnvio;
 	}
-
-	public void setFecha_envio(Date fecha_envio) {
-		this.fecha_envio = fecha_envio;
+	public void setFechaEnvio(Date fechaEnvio) {
+		this.fechaEnvio = fechaEnvio;
 	}
-
-	public float getPrecio_total() {
-		return precio_total;
+	public float getPrecioTotal() {
+		return precioTotal;
 	}
-
-	public void setPrecio_total(float precio_total) {
-		this.precio_total = precio_total;
+	public void setPrecioTotal(float precioTotal) {
+		this.precioTotal = precioTotal;
 	}
-
 	public Ruta getRuta() {
 		return ruta;
 	}

@@ -3,7 +3,9 @@ package com.encomienda.app.models.entity;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,11 +26,11 @@ public class Ruta implements Serializable {
 	private float precio;
 	
 	@ManyToOne
-	@JoinColumn(name = "ruta_sucursalEmisor_fk",referencedColumnName = "idSucursal")
+	@JoinColumn(name = "ruta_sucursalEmisor_fk",referencedColumnName = "idSucursal",foreignKey = @ForeignKey(name = "ruta_sucursalEmisor_fk", value = ConstraintMode.CONSTRAINT))
 	private Sucursal sucursalEmisor;
 	
 	@ManyToOne
-	@JoinColumn(name = "ruta_sucursalReceptor_fk",referencedColumnName = "idSucursal")
+	@JoinColumn(name = "ruta_sucursalReceptor_fk",referencedColumnName = "idSucursal",foreignKey = @ForeignKey(name = "ruta_sucursalReceptor_fk", value = ConstraintMode.CONSTRAINT))
 	private Sucursal sucursalReceptor;
 	
 
