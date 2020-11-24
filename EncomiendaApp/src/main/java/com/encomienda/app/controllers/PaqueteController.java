@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.encomienda.app.models.entity.Paquete;
-import com.encomienda.app.services.PaqueteService;
+import com.encomienda.app.services.interfaces.IPaqueteService;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
@@ -24,11 +24,13 @@ import com.encomienda.app.services.PaqueteService;
 public class PaqueteController {
 	
 	@Autowired
-	private PaqueteService paqueteServices;
+	private IPaqueteService paqueteServices;
 	
 	@GetMapping("/paquetes")
 	private List<Paquete> listarPaquetes(){
+		System.out.print(paqueteServices.countRows()+"holaaaaaaaaaaaa");
 		return paqueteServices.findAll();
+		
 	}
 	
 	@GetMapping("paquetes/{id}")
@@ -39,7 +41,11 @@ public class PaqueteController {
 	@PostMapping("/paquetes")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Paquete crearPaquete(@RequestBody Paquete paquete) {
-		return paqueteServices.save(paquete);
+		if(paquete.validarPesoDePaquete() == true) {
+			paquete.setEstado(true);
+			return paqueteServices.save(paquete);
+		}
+		return null;
 	}
 	
 	@PutMapping("/paquetes/{id}")

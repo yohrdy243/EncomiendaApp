@@ -1,13 +1,13 @@
 package com.encomienda.app.models.entity;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 @Entity
 @Table
 public class Cliente implements Serializable {
@@ -31,7 +31,10 @@ public class Cliente implements Serializable {
 	
 	@Column(name = "correo")
 	private String correo;
-
+	
+	@Column(name= "habilitado")
+	private boolean habilitado;
+	
 	public Long getIdCliente() {
 		return idCliente;
 	}
@@ -80,7 +83,14 @@ public class Cliente implements Serializable {
 		this.correo = correo;
 	}
 
+	public boolean isHabilitado() {
+		return habilitado;
+	}
 
-	
+	public void setHabilitado(boolean habilitado) {
+		this.habilitado = habilitado;
+	}
+		
+
 	
 }

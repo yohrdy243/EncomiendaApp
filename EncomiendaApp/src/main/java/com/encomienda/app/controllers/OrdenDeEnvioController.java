@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.encomienda.app.models.entity.OrdenDeEnvio;
 import com.encomienda.app.models.entity.Paquete;
 import com.encomienda.app.models.entity.Ruta;
-import com.encomienda.app.services.OrdenDeEnvioService;
+import com.encomienda.app.services.interfaces.IOrdenDeEnvioService;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
@@ -24,14 +24,14 @@ import com.encomienda.app.services.OrdenDeEnvioService;
 public class OrdenDeEnvioController {
 	
 	@Autowired
-	private OrdenDeEnvioService ordenDeEnvioServices;
+	private IOrdenDeEnvioService ordenDeEnvioServices;
 	
 	@GetMapping("/ordenDeEnvios")
 	private List<OrdenDeEnvio> listarOrdenDeEnvios(){
 		return ordenDeEnvioServices.findAll();
 	}
 	
-	@GetMapping("ordenDeEnvios/{id}")
+	@GetMapping("/ordenDeEnvios/{id}")
 	public OrdenDeEnvio buscarOrdenDeEnvioPorId(@PathVariable Long idOrdenDeEnvio) {
 		return ordenDeEnvioServices.findById(idOrdenDeEnvio);
 	}

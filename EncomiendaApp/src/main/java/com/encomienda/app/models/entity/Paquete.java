@@ -1,11 +1,9 @@
 package com.encomienda.app.models.entity;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table
@@ -40,14 +38,18 @@ public class Paquete implements Serializable{
 	@Column(name = "peso")
 	private float peso;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@Column(name = "precioPaquete")
+	private float precioPaquete;
+	
+	@ManyToOne
 	@JoinColumn(name = "paquete_categoria_fk", referencedColumnName = "idCategoria",foreignKey = @ForeignKey(name = "paquete_categoria_fk", value = ConstraintMode.CONSTRAINT))
 	private Categoria categoria;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
+	@ManyToOne
 	@JoinColumn(name="orden_paquetes_fk",referencedColumnName = "idOrdenDeEnvio",foreignKey = @ForeignKey(name = "paquete_orden_fk", value = ConstraintMode.CONSTRAINT))
 	private OrdenDeEnvio ordenDeEnvio;
-	
+		
 	public boolean validarEstadoVigente() 
 	{
 		if(estado == true) {
@@ -57,7 +59,6 @@ public class Paquete implements Serializable{
 		}
 	}
 
-	
 	public boolean validarPesoDePaquete() {
 		
 		float pesoMaximo = this.categoria.getPesoMaximo();
@@ -66,27 +67,27 @@ public class Paquete implements Serializable{
 		
 		switch (categoria) {
 			case 'A' : 
-					if(this.peso >= pesoMaximo && this.peso >= pesoMinimo) {
+					if(this.peso <= pesoMaximo && this.peso >= pesoMinimo) {
 							return true;
 						}
 					break;
 			case 'B' : 
-					if(this.peso >= pesoMaximo  && this.peso >= pesoMinimo) {
+					if(this.peso <= pesoMaximo  && this.peso >= pesoMinimo) {
 							return true;
 						}
 				break;
 			case 'C' : 
-					if(this.peso >= pesoMaximo  && this.peso >= pesoMinimo) {
+					if(this.peso <= pesoMaximo  && this.peso >= pesoMinimo) {
 							return true;
 						}
 				break;
 			case 'D' : 
-					if(this.peso >= pesoMaximo  && this.peso >= pesoMinimo) {
+					if(this.peso <= pesoMaximo  && this.peso >= pesoMinimo) {
 							return true;
 						}
 				break;
 			case 'E' : 
-					if(this.peso >= pesoMaximo  && this.peso >= pesoMinimo) {
+					if(this.peso <= pesoMaximo  && this.peso >= pesoMinimo) {
 							return true;
 						}
 				break;
@@ -97,7 +98,12 @@ public class Paquete implements Serializable{
 		return false;
 	}
 	
-	
+	public void generarCodigoPaquete(Long numeroDePaquete) 
+	{
+		Long numero = Long.parseLong(this.codigo);
+		numeroDePaquete = numeroDePaquete + numero;
+		this.codigo = "P" + this.categoria.getTipoCategoria() + "-" +numeroDePaquete;
+	}
 	
 	public Long getIdPaquete() {
 		return idPaquete;
@@ -153,6 +159,24 @@ public class Paquete implements Serializable{
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public OrdenDeEnvio getOrdenDeEnvio() {
+		return ordenDeEnvio;
+	}
+
+	public void setOrdenDeEnvio(OrdenDeEnvio ordenDeEnvio) {
+		this.ordenDeEnvio = ordenDeEnvio;
+	}
+	
+
+	public float getPrecioPaquete() {
+		return precioPaquete;
+	}
+	
+
+	public void setPrecioPaquete(float precioPaquete) {
+		this.precioPaquete = precioPaquete;
 	}
 	
 	

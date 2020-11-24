@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.encomienda.app.models.entity.Categoria;
-import com.encomienda.app.services.CategoriaService;
+import com.encomienda.app.services.interfaces.ICategoriaService;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
@@ -22,7 +21,7 @@ import com.encomienda.app.services.CategoriaService;
 public class CategoriaController {
 	
 	@Autowired
-	private CategoriaService categoriaServices;
+	private ICategoriaService categoriaServices;
 	
 	@GetMapping("/categorias")
 	private List<Categoria> listarCategorias(){
@@ -59,8 +58,8 @@ public class CategoriaController {
 		return categoriaServices.save(categoriaActual); 
 	}
 	
-	@DeleteMapping("/categoria/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PutMapping("/categoria/deshabilitar/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
 	public void delete(@PathVariable Long id) {
 		categoriaServices.deletebyId(id);
 	}

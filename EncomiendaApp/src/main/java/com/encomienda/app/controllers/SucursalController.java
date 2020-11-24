@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.encomienda.app.models.entity.Sucursal;
-import com.encomienda.app.services.SucursalService;
+import com.encomienda.app.services.interfaces.ISucursalService;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
@@ -24,25 +24,29 @@ import com.encomienda.app.services.SucursalService;
 public class SucursalController {
 	
 	@Autowired
-	private SucursalService sucursalServices;
+	private ISucursalService sucursalServices;
 	
-	@GetMapping("/sucursals")
+	@GetMapping("/sucursales")
 	private List<Sucursal> listarSucursals(){
 		return sucursalServices.findAll();
 	}
 	
-	@GetMapping("sucursals/{id}")
+	@GetMapping("sucursales/{id}")
 	public Sucursal buscarSucursalPorId(@PathVariable Long idSucursal) {
 		return sucursalServices.findById(idSucursal);
 	}
+	@GetMapping("sucursales/nombre/{nombre}")
+	public Sucursal buscarSucursalPorId(@PathVariable String nombre) {
+		return sucursalServices.findByNombre(nombre);
+	}
 	
-	@PostMapping("/sucursals")
+	@PostMapping("/sucursales")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Sucursal crearSucursal(@RequestBody Sucursal sucursal) {
 		return sucursalServices.save(sucursal);
 	}
 	
-	@PutMapping("/sucursals/{id}")
+	@PutMapping("/sucursales/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Sucursal actualizarSucursal(@RequestBody Sucursal sucursal,@PathVariable Long id) {
 		
@@ -50,7 +54,7 @@ public class SucursalController {
 		return sucursalServices.save(sucursalActual); 
 	}
 	
-	@DeleteMapping("/sucursal/{id}")
+	@DeleteMapping("/sucursales/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
 		sucursalServices.deletebyId(id);
