@@ -1,4 +1,4 @@
-package com.encomienda.app.controllers;
+package com.encomienda.app.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import com.encomienda.app.services.interfaces.IPaqueteService;
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/encomiendas")
-public class GestionarRecepcionDePaqueteController {
+public class GestionarRecepcionDePaqueteService {
 	
 	@Autowired
 	private IPaqueteService paqueteService;
@@ -74,9 +74,15 @@ public class GestionarRecepcionDePaqueteController {
 	}
 	
 	private void guardarPaquetes(List<Paquete> paquetesProcesados,OrdenDeEnvio ordenDeEnvioGuardada) {
+		
 		for (Paquete paquete : paquetesProcesados ) {
-			paquete.setOrdenDeEnvio(ordenDeEnvioGuardada);
-			paqueteService.save(paquete);
+			
+			if(paquete.validarCategoria() == true) {
+				
+				paquete.setOrdenDeEnvio(ordenDeEnvioGuardada);
+				paqueteService.save(paquete);
+			
+			}
 		}
 	}
 	

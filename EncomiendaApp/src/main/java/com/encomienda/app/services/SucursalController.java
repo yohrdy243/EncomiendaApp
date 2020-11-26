@@ -1,4 +1,4 @@
-package com.encomienda.app.controllers;
+package com.encomienda.app.services;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class SucursalController {
 	private ISucursalService sucursalServices;
 	
 	@GetMapping("/sucursales")
-	private List<Sucursal> listarSucursals(){
+	public List<Sucursal> listarSucursales(){
 		return sucursalServices.findAll();
 	}
 	

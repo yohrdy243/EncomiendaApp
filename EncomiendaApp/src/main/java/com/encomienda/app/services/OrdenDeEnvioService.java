@@ -1,4 +1,4 @@
-package com.encomienda.app.controllers;
+package com.encomienda.app.services;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import com.encomienda.app.services.interfaces.IOrdenDeEnvioService;
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/encomiendas")
-public class OrdenDeEnvioController {
+public class OrdenDeEnvioService {
 	
 	@Autowired
 	private IOrdenDeEnvioService ordenDeEnvioServices;

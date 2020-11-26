@@ -1,4 +1,4 @@
-package com.encomienda.app.controllers;
+package com.encomienda.app.services;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ import com.encomienda.app.services.interfaces.IPaqueteService;
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/encomiendas")
-public class PaqueteController {
+public class PaqueteService {
 	
 	@Autowired
 	private IPaqueteService paqueteServices;
@@ -41,7 +41,7 @@ public class PaqueteController {
 	@PostMapping("/paquetes")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Paquete crearPaquete(@RequestBody Paquete paquete) {
-		if(paquete.validarPesoDePaquete() == true) {
+		if(paquete.validarCategoria() == true) {
 			paquete.setEstado(true);
 			return paqueteServices.save(paquete);
 		}

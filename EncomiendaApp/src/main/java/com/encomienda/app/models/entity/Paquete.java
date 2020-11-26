@@ -50,16 +50,7 @@ public class Paquete implements Serializable{
 	@JoinColumn(name="orden_paquetes_fk",referencedColumnName = "idOrdenDeEnvio",foreignKey = @ForeignKey(name = "paquete_orden_fk", value = ConstraintMode.CONSTRAINT))
 	private OrdenDeEnvio ordenDeEnvio;
 		
-	public boolean validarEstadoVigente() 
-	{
-		if(estado == true) {
-			return true;
-		}else {
-			return false;
-		}
-	}
-
-	public boolean validarPesoDePaquete() {
+	public boolean validarCategoria() {
 		
 		float pesoMaximo = this.categoria.getPesoMaximo();
 		float pesoMinimo = this.categoria.getPesoMinimo();
@@ -95,6 +86,7 @@ public class Paquete implements Serializable{
 			default:
 				return false;
 			}
+		
 		return false;
 	}
 	

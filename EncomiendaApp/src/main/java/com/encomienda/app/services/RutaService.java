@@ -1,4 +1,4 @@
-package com.encomienda.app.controllers;
+package com.encomienda.app.services;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import com.encomienda.app.services.interfaces.ISucursalService;
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/encomiendas")
-public class RutaController {
+public class RutaService {
 	
 	@Autowired
 	private IRutaService rutaServices;
@@ -30,7 +30,7 @@ public class RutaController {
 	private ISucursalService sucursalServices;
 	
 	@GetMapping("/rutas")
-	private List<Ruta> listarRutas(){
+	public List<Ruta> listarRutas(){
 		return rutaServices.findAll();
 	}
 	

@@ -1,4 +1,4 @@
-package com.encomienda.app.controllers;
+package com.encomienda.app.services;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +19,13 @@ import com.encomienda.app.services.interfaces.IClienteService;
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/encomiendas")
-public class ClienteController {
+public class ClienteServices {
 	
 	@Autowired
 	private IClienteService clienteServices;
 	
 	@GetMapping("/clientes")
-	private List<Cliente> listarClientes(){
+	public List<Cliente> listarClientes(){
 		return clienteServices.findAll();
 	}
 	

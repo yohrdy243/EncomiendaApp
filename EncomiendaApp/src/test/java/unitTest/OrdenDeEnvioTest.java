@@ -1,4 +1,4 @@
-package EncomiendaApp_prueba;
+package unitTest;
 
 
 import static org.junit.Assert.assertEquals;

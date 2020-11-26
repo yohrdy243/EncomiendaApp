@@ -1,4 +1,4 @@
-package EncomiendaApp_prueba;
+package unitTest;
 
 import static org.junit.Assert.*;
 
@@ -6,26 +6,10 @@ import org.junit.Test;
 
 import com.encomienda.app.models.entity.Categoria;
 import com.encomienda.app.models.entity.Paquete;
-/*import com.encomienda.app.services.interfaces.IPaqueteService;*/
-
 
 public class PaqueteTest {
 	
-	/*private IPaqueteService paqueteService;*/
 
-	@Test
-	public void testValidarEstadoVigente() {
-		Paquete paquete = new Paquete();
-		paquete.setEstado(true);
-		
-		boolean resultadoEsperado = true;
-		
-		assertTrue(paquete.validarEstadoVigente());
-		assertEquals(resultadoEsperado, paquete.validarEstadoVigente());
-		
-	}
-	
-	
 	@Test
 	public void testValidarPesoDePaqueteCategoriaA() {
 		
@@ -40,7 +24,7 @@ public class PaqueteTest {
 		paquete.setPeso(3);
 		paquete.setCategoria(categoria);
 		
-		assertTrue(paquete.validarPesoDePaquete());
+		assertTrue(paquete.validarCategoria());
 	}
 	
 	@Test
@@ -56,7 +40,7 @@ public class PaqueteTest {
 		paquete.setPeso(7);
 		paquete.setCategoria(categoria);
 				
-		assertTrue(paquete.validarPesoDePaquete());
+		assertTrue(paquete.validarCategoria());
 		
 	}
 	
@@ -73,7 +57,7 @@ public class PaqueteTest {
 		paquete.setPeso(16);
 		paquete.setCategoria(categoria);
 				
-		assertTrue(paquete.validarPesoDePaquete());
+		assertTrue(paquete.validarCategoria());
 		
 	}
 	
@@ -91,7 +75,7 @@ public class PaqueteTest {
 		paquete.setPeso(26);
 		paquete.setCategoria(categoria);
 		
-		assertTrue(paquete.validarPesoDePaquete());
+		assertTrue(paquete.validarCategoria());
 		
 	}
 	
@@ -108,7 +92,7 @@ public class PaqueteTest {
 		paquete.setPeso(130); // SUGERENCIA -- USE A DOUBLE DATATYPE INSTEAD OF A FLOAT DATATYPE
 		paquete.setCategoria(categoria);
 		
-		assertTrue(paquete.validarPesoDePaquete());
+		assertTrue(paquete.validarCategoria());
 		
 	}
 	
