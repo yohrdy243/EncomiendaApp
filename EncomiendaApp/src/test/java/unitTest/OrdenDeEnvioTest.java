@@ -5,11 +5,12 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import com.encomienda.app.models.entity.Categoria;
-import com.encomienda.app.models.entity.OrdenDeEnvio;
-import com.encomienda.app.models.entity.Paquete;
-import com.encomienda.app.models.entity.Ruta;
-import com.encomienda.app.models.entity.Sucursal;
+
+import com.encomienda.app.domain.entities.Categoria;
+import com.encomienda.app.domain.entities.OrdenDeEnvio;
+import com.encomienda.app.domain.entities.Paquete;
+import com.encomienda.app.domain.entities.Ruta;
+import com.encomienda.app.domain.entities.Sucursal;
 
 public class OrdenDeEnvioTest {
 

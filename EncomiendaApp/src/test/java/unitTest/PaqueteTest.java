@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.encomienda.app.models.entity.Categoria;
-import com.encomienda.app.models.entity.Paquete;
+import com.encomienda.app.domain.entities.Categoria;
+import com.encomienda.app.domain.entities.Paquete;
 
 public class PaqueteTest {
 	
