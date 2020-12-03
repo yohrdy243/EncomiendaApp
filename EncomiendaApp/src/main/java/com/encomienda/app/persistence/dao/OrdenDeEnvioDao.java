@@ -17,31 +17,31 @@ public class OrdenDeEnvioDao implements IOrdenDeEnvio{
 	
 	@Transactional(readOnly = true)
 	@Override
-	public List<OrdenDeEnvio> findAll() {
+	public List<OrdenDeEnvio> obtenerOrdenesDeEnvio() {
 		return (List<OrdenDeEnvio>)ordenDeEnvioDao.findAll();
 	}
 	
 	@Transactional
 	@Override
-	public OrdenDeEnvio save(OrdenDeEnvio ordenDeEnvio) {
+	public OrdenDeEnvio guardarOrdenDeEnvio(OrdenDeEnvio ordenDeEnvio) {
 		return ordenDeEnvioDao.save(ordenDeEnvio);
 	}
 	
 	@Transactional(readOnly = true)
 	@Override
-	public OrdenDeEnvio findById(Long idOrdenDeEnvio) {
+	public OrdenDeEnvio buscarOrdenDeEnvio(Long idOrdenDeEnvio) {
 		return ordenDeEnvioDao.findById(idOrdenDeEnvio).orElse(null);
 	}
 	
 	@Transactional
 	@Override
-	public void deletebyId(Long id) {
+	public void borrarOrdenDeEnvio(Long id) {
 		ordenDeEnvioDao.deleteById(id);
 	}
 	
 	@Transactional
 	@Override
-	public Long countRows() {
+	public Long contarOrdenesDeEnvio() {
 		return ordenDeEnvioDao.count();
 	}
 

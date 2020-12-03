@@ -8,6 +8,5 @@ import com.encomienda.app.domain.entities.Sucursal;
 @Repository
 public interface ISucursalRepository extends JpaRepository<Sucursal,Long>{
 	
-	public Sucursal findByNombre (String Nombre);
 
 }

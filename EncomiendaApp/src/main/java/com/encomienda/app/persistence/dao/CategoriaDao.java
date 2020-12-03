@@ -16,25 +16,25 @@ public class CategoriaDao implements ICategoria{
 	
 	@Transactional(readOnly = true)
 	@Override
-	public List<Categoria> findAll() {
+	public List<Categoria> obtenerCategorias() {
 		return (List<Categoria>)categoriaDao.findAll();
 	}
 
 	@Override
 	@Transactional
-	public Categoria save(Categoria categoria) {
+	public Categoria guardarCategoria(Categoria categoria) {
 		return categoriaDao.save(categoria);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public Categoria findById(Long idCategoria) {
+	public Categoria buscarCategoria(Long idCategoria) {
 		return categoriaDao.findById(idCategoria).orElse(null);
 	}
 
 	@Transactional
 	@Override
-	public void deletebyId(Long id) {
+	public void borrarCategoria(Long id) {
 		categoriaDao.deleteById(id);
 	}
 

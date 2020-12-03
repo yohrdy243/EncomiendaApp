@@ -18,42 +18,42 @@ public class PaqueteDao implements IPaquete{
 	
 	@Transactional(readOnly = true)
 	@Override
-	public List<Paquete> findAll() {
+	public List<Paquete> obtenerPaquetes() {
 		return (List<Paquete>)paqueteDao.findAll();
 	}
 	
 	@Transactional
 	@Override
-	public Paquete save(Paquete paquete) {
+	public Paquete guardarPaquete(Paquete paquete) {
 		return paqueteDao.save(paquete);
 	}
 	
 	@Transactional(readOnly = true)
 	@Override
-	public Paquete findById(Long idPaquete) {
+	public Paquete buscarPaquete(Long idPaquete) {
 		return paqueteDao.findById(idPaquete).orElse(null);
 	}
 	
 	@Transactional
 	@Override
-	public void deletebyId(Long id) {
+	public void borrarPaquete(Long id) {
 		paqueteDao.deleteById(id);
 		
 	}
 	@Transactional(readOnly = true)
 	@Override
-	public Long countRows() {
+	public Long contarPaquetes() {
 		return paqueteDao.count();
 	}
 	
 	@Transactional
 	@Override
-	public List<Paquete> findByCategoria_IdCategoria(Long idCategoria) {
+	public List<Paquete> buscarPaquetesDeCategoria(Long idCategoria) {
 		return paqueteDao.findByCategoria_IdCategoria(idCategoria);
 	}
 	@Transactional
 	@Override
-	public List<Paquete> findByOrdenDeEnvio_Ruta_SucursalEmisor_IdSucursal(Long idSucursal) {
+	public List<Paquete> buscarPaquetesDeSucursal(Long idSucursal) {
 		return paqueteDao.findByOrdenDeEnvio_Ruta_SucursalEmisor_IdSucursal(idSucursal);
 	}
 

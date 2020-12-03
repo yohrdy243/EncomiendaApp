@@ -49,7 +49,7 @@ public class GestionarRecepcionDePaqueteService {
 	
 	private Categoria obtenerCategoria(Paquete paquete) 
 	{
-		List<Categoria> categorias = categoriaService.findAll();
+		List<Categoria> categorias = categoriaService.obtenerCategorias();
 		
 		for (Categoria categoria : categorias) {
 			if(categoria.getPesoMaximo() >= paquete.getPeso() && categoria.getPesoMinimo() <= paquete.getPeso()) {
@@ -69,7 +69,7 @@ public class GestionarRecepcionDePaqueteService {
 			Categoria categoria = obtenerCategoria(paquete);
 			paquete.setCategoria(categoria);
 			paquete.setCodigo(iterador.toString());
-			Long numeroDePaquete = paqueteService.countRows();
+			Long numeroDePaquete = paqueteService.contarPaquetes();
 			paquete.generarCodigoPaquete(numeroDePaquete);
 			paquetesProcesados.add(paquete);
 			iterador++;
@@ -82,7 +82,7 @@ public class GestionarRecepcionDePaqueteService {
 	@ResponseStatus(HttpStatus.CREATED)
 	public OrdenDeEnvio procesarOrdenDeEnvio(@RequestBody OrdenDeEnvio ordenDeEnvio)
 	{
-		Long numeroDeOrden = ordenDeEnvioService.countRows()+1;
+		Long numeroDeOrden = ordenDeEnvioService.contarOrdenesDeEnvio()+1;
 		ordenDeEnvio.generarCodigoOrden(numeroDeOrden); 
 		ordenDeEnvio.generarClaveOrden(numeroDeOrden);
 		ordenDeEnvio.calcularPrecioTotal();
@@ -94,11 +94,9 @@ public class GestionarRecepcionDePaqueteService {
 		
 		for (Paquete paquete : paquetesProcesados ) {
 			
-			if(paquete.validarCategoria() == true) {
-				
+			if(paquete.validarCategoria()) {	
 				paquete.setOrdenDeEnvio(ordenDeEnvioGuardada);
-				paqueteService.save(paquete);
-			
+				paqueteService.guardarPaquete(paquete);
 			}
 		}
 	}
@@ -109,7 +107,7 @@ public class GestionarRecepcionDePaqueteService {
 		
 		List<Paquete> paquetesProcesados = new ArrayList<Paquete>(ordenDeEnvio.getPaquetes());
 		ordenDeEnvio.getPaquetes().clear();
-		OrdenDeEnvio ordenDeEnvioGuardada = ordenDeEnvioService.save(ordenDeEnvio);
+		OrdenDeEnvio ordenDeEnvioGuardada = ordenDeEnvioService.guardarOrdenDeEnvio(ordenDeEnvio);
 		guardarPaquetes(paquetesProcesados, ordenDeEnvioGuardada);
 		return ordenDeEnvioGuardada;
 	}
@@ -121,19 +119,20 @@ public class GestionarRecepcionDePaqueteService {
 	
 	@GetMapping("/clientes")
 	public List<Cliente> listarClientes(){
-		return clienteServices.findAll();
+		return clienteServices.obtenerClientes();
 	}
 		
 	@GetMapping("rutas/buscar/{idSucursalEmisor}/{idSucursalReceptor}")
 	public Ruta buscarRutaPorId(@PathVariable Long idSucursalEmisor,@PathVariable Long idSucursalReceptor) {
-		Sucursal sucursalEmisor = sucursalServices.findById(idSucursalEmisor);
-		Sucursal sucursalReceptor = sucursalServices.findById(idSucursalReceptor);
-		return rutaServices.findBySucursalEmisorAndSucursalReceptor(sucursalEmisor, sucursalReceptor);
+		Sucursal sucursalEmisor = sucursalServices.buscarSucursal(idSucursalEmisor);
+		Sucursal sucursalReceptor = sucursalServices.buscarSucursal(idSucursalReceptor);
+		
+		return rutaServices.buscarRutaPorSucursales(sucursalEmisor, sucursalReceptor);
 	}
 
 	@GetMapping("/sucursales")
 	public List<Sucursal> listarSucursales(){
-		return sucursalServices.findAll();
+		return sucursalServices.obtenerSucursales();
 	}
 	
 }

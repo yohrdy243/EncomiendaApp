@@ -6,10 +6,9 @@ import com.encomienda.app.domain.entities.Cliente;
 
 public interface ICliente {
 
-	public List<Cliente> findAll();
-	public Cliente save(Cliente cliente);
-	public Cliente findById(Long dni);
-	public void deletebyId(Long id);
-	public Cliente findByDni (Long Dni);
+	public List<Cliente> obtenerClientes();
+	public Cliente guardarCliente(Cliente cliente);
+	public Cliente buscarCliente(Long dni);
+	public void borrarCliente(Long id);
 
 }

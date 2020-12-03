@@ -17,30 +17,30 @@ public class RutaDao implements IRuta {
 	
 	@Transactional(readOnly = true)
 	@Override
-	public List<Ruta> findAll() {
+	public List<Ruta> obtenerRutas() {
 		return (List<Ruta>)rutaDao.findAll();
 	}
 
 	@Transactional
 	@Override
-	public Ruta save(Ruta ruta) {
+	public Ruta guardarRuta(Ruta ruta) {
 		return rutaDao.save(ruta);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public Ruta findById(Long idRuta) {
+	public Ruta buscarRuta(Long idRuta) {
 		return rutaDao.findById(idRuta).orElse(null);
 	}
 	@Transactional
 	@Override
-	public void deletebyId(Long id) {
+	public void eliminarRuta(Long id) {
 		rutaDao.deleteById(id);
 	}
 	
 	@Transactional(readOnly = true)
 	@Override
-	public Ruta findBySucursalEmisorAndSucursalReceptor(Sucursal sucursalEmisor, Sucursal sucursalReceptor) {
+	public Ruta buscarRutaPorSucursales(Sucursal sucursalEmisor, Sucursal sucursalReceptor) {
 		return rutaDao.findBySucursalEmisorAndSucursalReceptor(sucursalEmisor, sucursalReceptor);
 	}
 

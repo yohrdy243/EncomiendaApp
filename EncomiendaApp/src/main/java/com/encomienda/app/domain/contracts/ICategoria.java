@@ -5,10 +5,10 @@ import com.encomienda.app.domain.entities.Categoria;
 
 public interface ICategoria {
 	
-	public List<Categoria> findAll();
-	public Categoria save(Categoria categoria);
-	public Categoria findById(Long idCategoria);
-	public void deletebyId(Long id);
+	public List<Categoria> obtenerCategorias();
+	public Categoria guardarCategoria(Categoria categoria);
+	public Categoria buscarCategoria(Long idCategoria);
+	public void borrarCategoria(Long id);
 	Categoria buscarCategoriaConElPesoMaximoMasAlto();
 	
 }

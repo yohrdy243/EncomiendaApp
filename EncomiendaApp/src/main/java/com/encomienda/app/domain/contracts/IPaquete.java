@@ -6,11 +6,11 @@ import com.encomienda.app.domain.entities.Paquete;
 
 public interface IPaquete {
 	
-	public List<Paquete> findAll();
-	public Paquete save(Paquete paquete);
-	public Paquete findById(Long idPaquete);
-	public void deletebyId(Long id);
-	public Long countRows();
-	public List<Paquete> findByCategoria_IdCategoria(Long idCategoria);
-	public List<Paquete> findByOrdenDeEnvio_Ruta_SucursalEmisor_IdSucursal(Long idSucursal);
+	public List<Paquete> obtenerPaquetes();
+	public Paquete guardarPaquete(Paquete paquete);
+	public Paquete buscarPaquete(Long idPaquete);
+	public void borrarPaquete(Long id);
+	public Long contarPaquetes();
+	public List<Paquete> buscarPaquetesDeCategoria(Long idCategoria);
+	public List<Paquete> buscarPaquetesDeSucursal(Long idSucursal);
 }

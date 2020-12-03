@@ -16,28 +16,25 @@ public class ClienteDao implements ICliente {
 	@Transactional(readOnly = true)
 
 	@Override
-	public List<Cliente> findAll() {
+	public List<Cliente> obtenerClientes() {
 		return (List<Cliente>)clienteDao.findByHabilitado(true);
 	}
 	@Transactional
 	@Override
-	public Cliente save(Cliente cliente) {
+	public Cliente guardarCliente(Cliente cliente) {
 		return clienteDao.save(cliente);
 	}
 	@Transactional(readOnly = true)
 	@Override
-	public Cliente findById(Long idCliente) {
+	public Cliente buscarCliente(Long idCliente) {
 		return clienteDao.findById(idCliente).orElse(null);
 	}
 
 	@Transactional
 	@Override
-	public void deletebyId(Long id) {
+	public void borrarCliente(Long id) {
 		clienteDao.deleteById(id);
 	}
-	@Override
-	public Cliente findByDni(Long Dni) {
-		return clienteDao.findByDni(Dni);
-	}
+
 
 }

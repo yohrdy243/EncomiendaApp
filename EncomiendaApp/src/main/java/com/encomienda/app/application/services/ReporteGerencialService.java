@@ -25,23 +25,24 @@ public class ReporteGerencialService {
 	private ICategoria categoriaServices;
 	
 	@GetMapping("/reporteGerencial/sucursal/{idSucursal}")
-	public List<Paquete> reportePorSucursal(@PathVariable Long idSucursal) {
-		List<Paquete> paquetes = paqueteService.findByOrdenDeEnvio_Ruta_SucursalEmisor_IdSucursal(idSucursal); 
+	public List<Paquete> buscarPaquetesDeSucursal(@PathVariable Long idSucursal) {
+		
+		List<Paquete> paquetes = paqueteService.buscarPaquetesDeSucursal(idSucursal); 
 		
 		return paquetes;
 	}
 	
 	@GetMapping("/reporteGerencial/categoria/{idCategoria}")
-	public List<Paquete> reportePorCategoria(@PathVariable Long idCategoria) {
+	public List<Paquete> buscarPaquetesDeCategoria(@PathVariable Long idCategoria) {
 		
-		List<Paquete> paquetes = paqueteService.findByCategoria_IdCategoria(idCategoria);
+		List<Paquete> paquetes = paqueteService.buscarPaquetesDeCategoria(idCategoria);
 		
 		return paquetes;
 	}
 	
 	@GetMapping("/categorias")
 	public List<Categoria> listarCategorias(){
-		return categoriaServices.findAll();
+		return categoriaServices.obtenerCategorias();
 	}
 	
 

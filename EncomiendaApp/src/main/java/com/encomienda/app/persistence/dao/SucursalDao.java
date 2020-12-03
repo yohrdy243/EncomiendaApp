@@ -16,29 +16,24 @@ public class SucursalDao implements ISucursal {
 	
 	@Transactional(readOnly = true)
 	@Override
-	public List<Sucursal> findAll() {
+	public List<Sucursal> obtenerSucursales() {
 		return (List<Sucursal>)sucursalDao.findAll();
 	}
 	@Transactional
 	@Override
-	public Sucursal save(Sucursal sucursal) {
+	public Sucursal guardarSucursal(Sucursal sucursal) {
 		return sucursalDao.save(sucursal);
 	}
 	@Transactional(readOnly = true)
 	@Override
-	public Sucursal findById(Long idSucursal) {
+	public Sucursal buscarSucursal(Long idSucursal) {
 		return sucursalDao.findById(idSucursal).orElse(null);
 	}
 	@Transactional
 	@Override
-	public void deletebyId(Long id) {
+	public void borrarSucursal(Long id) {
 		sucursalDao.deleteById(id);
 	}
 	
-	@Transactional(readOnly = true)
-	@Override
-	public Sucursal findByNombre(String nombre) {
-		return sucursalDao.findByNombre(nombre);
-	}
 
 }

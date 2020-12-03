@@ -6,9 +6,9 @@ import com.encomienda.app.domain.entities.Sucursal;
 
 public interface ISucursal {
 	
-	public List<Sucursal> findAll();
-	public Sucursal save(Sucursal sucursal);
-	public Sucursal findById(Long idSucursal);
-	public void deletebyId(Long id);
-	public Sucursal findByNombre(String nombre);
+	public List<Sucursal> obtenerSucursales();
+	public Sucursal guardarSucursal(Sucursal sucursal);
+	public Sucursal buscarSucursal(Long idSucursal);
+	public void borrarSucursal(Long id);
+
 }

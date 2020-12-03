@@ -9,8 +9,6 @@ import com.encomienda.app.domain.entities.Cliente;
 
 @Repository
 public interface IClienteRepository extends JpaRepository<Cliente,Long>{
-	
-	public Cliente findByDni(Long dni);
 	public List<Cliente> findByHabilitado(boolean estado);
 
 }
