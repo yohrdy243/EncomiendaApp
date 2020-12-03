@@ -40,7 +40,7 @@ public class ReporteGerencialService {
 	}
 	
 	@GetMapping("/categorias")
-	private List<Categoria> listarCategorias(){
+	public List<Categoria> listarCategorias(){
 		return categoriaServices.findAll();
 	}
 	

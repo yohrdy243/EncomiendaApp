@@ -92,9 +92,11 @@ public class Paquete implements Serializable{
 	
 	public void generarCodigoPaquete(Long numeroDePaquete) 
 	{
+		
 		Long numero = Long.parseLong(this.codigo);
-		numeroDePaquete = numeroDePaquete + numero;
-		this.codigo = "P" + this.categoria.getTipoCategoria() + "-" +numeroDePaquete;
+		Long identificadorPaquete = numeroDePaquete + numero;
+		
+		this.codigo = "P" + this.categoria.getTipoCategoria() + "-" + identificadorPaquete;
 	}
 	
 	public Long getIdPaquete() {
